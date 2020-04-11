@@ -5,12 +5,12 @@ from abc import abstractmethod
 from tensorboardX import SummaryWriter
 
 class MetaTemplate(nn.Module):
-    def __init__(self, model_func, n_way, n_support, spatial_dropout=False, tf_path=None, change_way=True):
+    def __init__(self, model_func, n_way, n_support, tf_path=None, change_way=True):
         super(MetaTemplate, self).__init__()
         self.n_way      = n_way
         self.n_support  = n_support
         self.n_query    = -1 #(change depends on input)
-        self.feature    = model_func()#dropout=spatial_dropout)
+        self.feature    = model_func()
         self.feat_dim   = self.feature.final_feat_dim
         self.change_way = change_way  #some methods allow different_way classification during training and test
         self.tf_writer = SummaryWriter(log_dir=tf_path) if tf_path is not None else None

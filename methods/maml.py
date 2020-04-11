@@ -5,10 +5,11 @@ import torch
 import torch.nn as nn
 import numpy as np
 from methods.meta_template import MetaTemplate
+from methods.drop_grad import DropGrad
 
 class MAML(MetaTemplate):
-  def __init__(self, model_func,  n_way, n_support, tf_path=None, approx=False, dropout_method='none', dropout_p=0., dropout_idx=0):
-    super(MAML, self).__init__( model_func,  n_way, n_support, spatial_dropout=(dropout_method == 'spatial'), tf_path=tf_path, change_way=False)
+  def __init__(self, model_func,  n_way, n_support, tf_path=None, approx=False, dropout_method='none', dropout_rate=0., dropout_schedule='constant'):
+    super(MAML, self).__init__( model_func,  n_way, n_support, tf_path=tf_path, change_way=False)
 
     self.loss_fn = nn.CrossEntropyLoss()
     self.classifier = backbone.Linear_fw(self.feat_dim, n_way)
@@ -19,13 +20,7 @@ class MAML(MetaTemplate):
     self.train_lr = 0.01
     self.approx = approx #first order approx.
 
-    self.dropout_method = dropout_method
-    self.dropout_p = dropout_p
-    self.dropout_p_cur = dropout_p
-    self.dropout_idx = dropout_idx
-    if self.dropout_method != 'none' and self.dropout_method != 'spatial':
-      print('  {} regularization with factor of {} start at {}'.format(self.dropout_method, self.dropout_p, self.dropout_idx))
-
+    self.dropout = DropGrad(dropout_method, dropout_rate, dropout_schedule)
     self.optimizer = torch.optim.Adam(self.parameters())
 
   def forward(self,x):
@@ -61,10 +56,7 @@ class MAML(MetaTemplate):
 
         # regularization
         if self.training:
-          if self.dropout_method == 'noise' and k >= self.dropout_idx:
-            grad[k] = grad[k]*torch.normal(mean=torch.ones_like(grad[k]), std=torch.ones_like(grad[k])*self.dropout_p_cur)
-          elif self.dropout_method == 'dropout':
-            grad[k] = grad[k]*(torch.gt(torch.rand_like(grad[k]), self.dropout_p).float()*(1/(1 - self.dropout_p_cur)))
+          grad[k] = self.dropout(grad[k])
 
         # update
         if weight.fast is None:
@@ -84,8 +76,6 @@ class MAML(MetaTemplate):
     scores = self.set_forward(x)
     y_b_i = torch.from_numpy(np.repeat(range( self.n_way ), self.n_query)).cuda()
     loss = self.loss_fn(scores, y_b_i)
-    '''if self.dropout_method == 'variational':
-      loss += (kl(self.dropout_p_variational)*0.001)'''
     return scores, loss
 
   def train_loop(self, epoch, stop_epoch, train_loader, total_it): #overwrite parrent function
@@ -95,10 +85,8 @@ class MAML(MetaTemplate):
     loss_all = []
     self.optimizer.zero_grad()
 
-    #determine dropout_p
-    if self.dropout_method != 'none':
-      self.dropout_p_cur = self.dropout_p#epoch / (stop_epoch - 1) * self.dropout_p
-      print('  current dropout_p: {:f}'.format(self.dropout_p_cur))
+    # update dropout rate
+    self.dropout.update_rate(epoch, stop_epoch) ## epoch / (stop_epoch - 1) * self.dropout_p
 
     # train loop
     for i, (x,_) in enumerate(train_loader):
@@ -106,7 +94,7 @@ class MAML(MetaTemplate):
       assert(self.n_way==x.size(0))
 
       # get loss
-      #self.optimizer.zero_grad()
+      self.optimizer.zero_grad()
       _, loss = self.set_forward_loss(x)
       avg_loss = avg_loss+loss.item()
       loss_all.append(loss)
@@ -119,8 +107,6 @@ class MAML(MetaTemplate):
         self.optimizer.step()
         task_count = 0
         loss_all = []
-
-      self.optimizer.zero_grad()
 
       # print out
       if (i + 1) % print_freq==0:
