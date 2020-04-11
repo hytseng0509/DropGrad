@@ -51,7 +51,3 @@ if __name__ == '__main__':
   # testing
   model.eval()
   acc_mean, acc_std = model.test_loop( novel_loader, return_std = True)
-
-  # result
-  print('%s-%s-%s %syway%sshot_test' %(params.dataset, params.model, params.method, params.test_n_way, params.n_shot))
-  print('%d Test Acc = %4.2f%% +- %4.2f%%' % (iter_num, acc_mean, 1.96*acc_std/np.sqrt(iter_num)))

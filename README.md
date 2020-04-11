@@ -17,7 +17,7 @@ ArXiv pre-print, 2020
 ```
 @article{dropgrad,
   author = {Tseng, Hung-Yu and Chen, Yi-Wen and Tsai, Yi-Hsuan and Liu, Sifei and Lin, Yen-Yu and Yang, Ming-Hsuan},
-  booktitle = {International Conference on Learning Representations},
+  journal = {arXiv preprint arXiv:},
   title = {Regularizing Meta-Learning via Gradient Dropout},
   year = {2020}
 }

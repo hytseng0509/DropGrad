@@ -93,6 +93,8 @@ if __name__=='__main__':
   total_it = 0
   start_epoch = params.start_epoch
   stop_epoch = params.stop_epoch
+  if params.method not in ['baseline', 'baseline++']:
+    stop_epoch = params.stop_epoch * model.batch_size
 
   # resume/warmup or not
   if params.resume != '':

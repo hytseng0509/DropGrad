@@ -15,7 +15,7 @@ class MAML(MetaTemplate):
     self.classifier = backbone.Linear_fw(self.feat_dim, n_way)
     self.classifier.bias.data.fill_(0)
 
-    self.n_task = 4
+    self.batch_size = 4
     self.task_update_num = 5
     self.train_lr = 0.01
     self.approx = approx #first order approx.
@@ -101,7 +101,7 @@ class MAML(MetaTemplate):
 
       # batch update
       task_count += 1
-      if task_count == self.n_task:
+      if task_count == self.batch_size:
         loss_q = torch.stack(loss_all).sum(0)
         loss_q.backward()
         self.optimizer.step()
