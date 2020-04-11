@@ -74,7 +74,7 @@ if __name__=='__main__':
   val_datamgr             = SetDataManager(image_size, n_query = n_query, **test_few_shot_params)
   val_loader              = val_datamgr.get_data_loader( val_file, aug = False)
   train_few_shot_params['dropout_method'] = params.dropout_method
-  train_few_shot_params['dropout_p'] = params.dropout_p
+  train_few_shot_params['dropout_rate'] = params.dropout_rate
   train_few_shot_params['dropout_schedule'] = params.dropout_schedule
 
   # prepare model

@@ -12,7 +12,7 @@ Contact: Hung-Yu Tseng (htseng6@ucmerced.edu), Yi-Wen Chen (ychen319@ucmerced.ed
 Please cite our paper if you find the code or dataset useful for your research.
 
 Regularizing Meta-Learning via Gradient Dropout<br>
-[Hung-Yu Tseng*](https://sites.google.com/site/hytseng0509/), [Yi-Wen Chen*](), [Yi-Hsuan Tsai](), [Sifei Liu](), [Yen-Yu Lin](), [Ming-Hsuan Yang](http://faculty.ucmerced.edu/mhyang/)<br>
+[Hung-Yu Tseng*](https://sites.google.com/site/hytseng0509/), [Yi-Wen Chen*](https://wenz116.github.io/), [Yi-Hsuan Tsai](https://sites.google.com/site/yihsuantsai/), [Sifei Liu](https://www.sifeiliu.net/), [Yen-Yu Lin](https://sites.google.com/site/yylinweb/), [Ming-Hsuan Yang](http://faculty.ucmerced.edu/mhyang/)<br>
 ArXiv pre-print, 2020
 ```
 @article{dropgrad,
@@ -39,7 +39,7 @@ pip3 install -r requirements.txt
 Clone this repository:
 ```
 git clone https://github.com/hytseng0509/DropGrad.git
-cd CrossDomainFewShot
+cd DropGrad
 ```
 
 ### Datasets
