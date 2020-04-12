@@ -4,7 +4,7 @@
 Pytorch implementation for our DropGrad approach. With the proposed regularization method, we can:
 
 1. alleviate the overfitting problem in the exisiting gradient-based meta-learning models
-2. improve the performance under **cross-domain** setting
+2. improve the performance under **cross-domain** few-shot classification setting
 
 Contact: Hung-Yu Tseng (htseng6@ucmerced.edu), Yi-Wen Chen (ychen319@ucmerced.edu)
 
@@ -12,13 +12,13 @@ Contact: Hung-Yu Tseng (htseng6@ucmerced.edu), Yi-Wen Chen (ychen319@ucmerced.ed
 Please cite our paper if you find the code or dataset useful for your research.
 
 Regularizing Meta-Learning via Gradient Dropout<br>
-[Hung-Yu Tseng*](https://sites.google.com/site/hytseng0509/), [Yi-Wen Chen*](https://wenz116.github.io/), [Yi-Hsuan Tsai](https://sites.google.com/site/yihsuantsai/), [Sifei Liu](https://www.sifeiliu.net/), [Yen-Yu Lin](https://sites.google.com/site/yylinweb/), [Ming-Hsuan Yang](http://faculty.ucmerced.edu/mhyang/)<br>
-ArXiv pre-print, 2020
+[Hung-Yu Tseng](https://sites.google.com/site/hytseng0509/)*, [Yi-Wen Chen](https://wenz116.github.io/)*, [Yi-Hsuan Tsai](https://sites.google.com/site/yihsuantsai/), [Sifei Liu](https://www.sifeiliu.net/), [Yen-Yu Lin](https://sites.google.com/site/yylinweb/), [Ming-Hsuan Yang](http://faculty.ucmerced.edu/mhyang/)<br>
+ArXiv pre-print, 2020 (* equal contribution)
 ```
 @article{dropgrad,
   author = {Tseng, Hung-Yu and Chen, Yi-Wen and Tsai, Yi-Hsuan and Liu, Sifei and Lin, Yen-Yu and Yang, Ming-Hsuan},
-  journal = {arXiv preprint arXiv:},
   title = {Regularizing Meta-Learning via Gradient Dropout},
+  journal = {arXiv preprint arXiv:},
   year = {2020}
 }
 ```
@@ -56,7 +56,7 @@ cd ..
 ### Training
 Train gradient-based model on the mini-ImageNet dataset.
 - `DPMETHOD` : dropout method `none`, `binary`, `gaussian`.
-- `DPRATE`: we suggest [0.1, 0.2].
+- `DPRATE`: dropout rate, we suggest [0.1, 0.2].
 ```
 python3 train.py --dropout_method DPMETHOD --dropout_rate DPRATE --name MAML_DPMETHOD_DPRATE --train_aug
 ```
