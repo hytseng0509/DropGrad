@@ -1,5 +1,5 @@
 # Regularizing Meta-Learning via Gradient Dropout 
-[[Paper]](https://arxiv.org/abs/2001.08735)
+[[Paper]](https://arxiv.org/abs/2004.05859)
 
 Pytorch implementation for our DropGrad approach. With the proposed regularization method, we can:
 
@@ -18,7 +18,7 @@ ArXiv pre-print, 2020 (* equal contribution)
 @article{dropgrad,
   author = {Tseng, Hung-Yu and Chen, Yi-Wen and Tsai, Yi-Hsuan and Liu, Sifei and Lin, Yen-Yu and Yang, Ming-Hsuan},
   title = {Regularizing Meta-Learning via Gradient Dropout},
-  journal = {arXiv preprint arXiv:},
+  journal = {arXiv preprint arXiv:2004.05859},
   year = {2020}
 }
 ```
@@ -72,3 +72,4 @@ python3 test.py --name MAML_DPMETHOD_DPRATE --dataset TESTSET
 - This code is built upon the implementation from [CloserLookFewShot](https://github.com/wyharveychen/CloserLookFewShot).
 - The dataset, model, and code are for non-commercial research purposes only.
 - You can change the number of shot (i.e. 1/5 shots) using the argument `--n_shot`.
+- Please refer to `output/checkpoints/download_models.py` for the example model file trained with the DropGrad approach.
