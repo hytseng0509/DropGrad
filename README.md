@@ -12,7 +12,7 @@ Contact: Hung-Yu Tseng (htseng6@ucmerced.edu), Yi-Wen Chen (ychen319@ucmerced.ed
 Please cite our paper if you find the code or dataset useful for your research.
 
 Regularizing Meta-Learning via Gradient Dropout<br>
-[Hung-Yu Tseng](https://sites.google.com/site/hytseng0509/)*, [Yi-Wen Chen](https://wenz116.github.io/)*, [Yi-Hsuan Tsai](https://sites.google.com/site/yihsuantsai/), [Sifei Liu](https://www.sifeiliu.net/), [Yen-Yu Lin](https://sites.google.com/site/yylinweb/), [Ming-Hsuan Yang](http://faculty.ucmerced.edu/mhyang/)<br>
+[Hung-Yu Tseng](https://sites.google.com/site/hytseng0509/)\*, [Yi-Wen Chen](https://wenz116.github.io/)\*, [Yi-Hsuan Tsai](https://sites.google.com/site/yihsuantsai/), [Sifei Liu](https://www.sifeiliu.net/), [Yen-Yu Lin](https://sites.google.com/site/yylinweb/), [Ming-Hsuan Yang](http://faculty.ucmerced.edu/mhyang/)<br>
 ArXiv pre-print, 2020 (* equal contribution)
 ```
 @article{dropgrad,
@@ -56,7 +56,7 @@ cd ..
 ### Training
 Train gradient-based model on the mini-ImageNet dataset.
 - `DPMETHOD` : dropout method `none`, `binary`, `gaussian`.
-- `DPRATE`: dropout rate, we suggest [0.1, 0.2].
+- `DPRATE`: dropout rate, we suggest 0.1.
 ```
 python3 train.py --dropout_method DPMETHOD --dropout_rate DPRATE --name MAML_DPMETHOD_DPRATE --train_aug
 ```
